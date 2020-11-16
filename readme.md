@@ -2,7 +2,13 @@
 
 This repo contains a Python script which can scrape weather forecast data from MWIS, to be stored in a pandas dataframe.
 
-Currently configured to extract: How wet, How cold at 900, and how windy (for the three main highland areas).
+Currently configured to extract:
+
+ 1. How wet?
+ 2. How cold at 900m?
+ 3. How windy?
+
+From each of the the three main highland regions.
 
 
 ## Crontab

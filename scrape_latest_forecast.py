@@ -122,7 +122,9 @@ def append_forecast_to_dataframe(df_row: pd.Series) -> None:
         df.to_csv(TABLE_PATH)
     else:
         df_cached = pd.read_csv(TABLE_PATH, header=[0, 1, 2], index_col=0)
-        df_cached.update(df)
+        assert (df_cached.columns == df.columns).all()
+
+        df_cached = df_cached.append(df).drop_duplicates()
         df_cached.to_csv(TABLE_PATH)
 
 
