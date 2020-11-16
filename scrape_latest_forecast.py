@@ -82,8 +82,11 @@ def extract_forecast_for_day(i: int, soup: BeautifulSoup) -> Dict:
     for x in SECTION_TITLES:
         forecast_str = forecast.find('h4', text=x).findNext('div').findNext().text
 
-        # Remove all punctuation from forecast
-        forecast_str = re.sub(r'[^\w\s]', '', forecast_str)
+        # Remove all punctuation from forecast (except hyphens for minus signs)
+        forecast_str = re.sub(r'[^\w\s-]', '', forecast_str)
+
+        # Convert all newlines and tabs to spaces
+        forecast_str = re.sub(r'\s+', ' ', forecast_str)
 
         data[x] = forecast_str
         
