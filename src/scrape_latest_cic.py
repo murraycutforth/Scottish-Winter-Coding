@@ -17,7 +17,7 @@ import pandas as pd
 
 
 URL = 'https://www.smc.org.uk/cicwebcam/cic_weather.php'
-TABLE_PATH = Path('/home/murray/Projects/MWIS-Scraper/data/cic_observations.csv')
+TABLE_PATH = Path('./../data/CIC/cic_observations.csv')
 
 
 def main():

@@ -1,0 +1,7 @@
+chrome_profile_path = '/tmp/tempchromeprofile'
+crag_url = 'https://www.ukclimbing.com/logbook/crags/ben_nevis-16877#overview'
+
+get_web_driver.profile_path = %chrome_profile_path
+get_web_driver.crag_url = %crag_url
+
+main.profile_path = %chrome_profile_path

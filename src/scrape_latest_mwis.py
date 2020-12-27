@@ -23,7 +23,7 @@ LOCATIONS = ['west-highlands',
 SECTION_TITLES = ['How Wet?',
                   'How windy? (On the Munros)',
                   'How Cold? (at 900m)']
-TABLE_PATH = Path('/home/murray/Projects/MWIS-Scraper/data/mwis_forecasts.csv')
+TABLE_PATH = Path('./../data/MWIS/mwis_forecasts.csv')
 
 
 def main():

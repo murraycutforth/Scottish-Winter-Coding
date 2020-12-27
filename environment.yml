@@ -1,7 +1,8 @@
-name: MWIS-Scraper
+name: scottishwinter
 channels:
-  - anaconda
   - defaults
+  - anaconda
+  - conda-forge
 dependencies:
   - python=3.6.12=hcff3b4d_2
   - beautifulsoup4=4.9.3=pyhb0f4dca_0
@@ -10,3 +11,6 @@ dependencies:
   - requests=2.24.0=py_0
   - lxml
   - html5lib
+  - selenium
+  - python-chromedriver-binary
+  - gin-config

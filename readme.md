@@ -1,6 +1,26 @@
-# MWIS Scraper
+# Scottish-Winter-Coding
 
-This repo contains a Python script which can scrape weather forecast data from MWIS, to be stored in a pandas dataframe.
+This repo contains a bunch of Python and shell scripts related to weather and conditions analysis for Scottish winter climbing.
+Some scripts are designed to be run daily (using `cron`) to extract current MWIS forecasts and CIC observations, while others can just be run once, such as the script used to store UKC logbook information.
+`rclone` is used to back up all data to Google Drive. The `selenium` and `beautifulsoup` packages are used for web scraping. All data is processed using Pandas and stored as .csv files.
+
+
+## Getting Started
+
+ - Install miniconda (https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html). If you install in a non-standard location you will need to change the Makefile.
+
+ - Install and configure rclone by running:
+```
+sudo apt install rclone
+rclone config
+```
+and follow the interactive prompts to set up a remote with any cloud storage provider. Set the name to "MyGoogleDrive", otherwise edit the REMOTENAME variable in the makefile.
+
+ - Next, just run `make all`. This uses the simple Makefile in the project to automatically set up the Python environment, and add crontab entries to scrape and back up MWIS and CIC data daily.
+Each script has a corresponding gin-config file which contains any parameters used by the script. Be careful to just run `make all` once, as running it repeatedly will add duplicates to the crontab. 
+
+
+### MWIS
 
 Currently configured to extract:
 
@@ -8,15 +28,23 @@ Currently configured to extract:
  2. How cold at 900m?
  3. How windy?
 
-From each of the the three main highland regions.
+From each of the the three main highland regions, for all 3 forecast dates.
 
 
-## Crontab
+### CIC
 
-Set up cron to run the script once per day in the evening:
+Currently configured to extract:
 
- 1. Run `cron -e` to start editing your crontab
- 2. Add the line: `0 19 * * * grep /path/to/env/python /path/to/scrape_latest_forecast.py`
- 3. Optionally also add `0 20 * * * /path/to/push_latest_forecast.sh` to push latest data to github immediately
+ 1. Max/min temperature
+ 2. Max/min wind speed
+ 3. Max/min humidity
 
-The log messages are sent to `/var/mail/username`
+From the past 24 hours.
+
+
+### UKC
+
+Currently set up so that when pointed at a crag overview page, the script extracts all winter routes on the crag, and then iterates through them and stores a separate csv file for each logbook. The code is purposefully slowed down to be kind to the UKC servers (if you're reading this Alan James, pls don't ban me). Just needs to be run once to get all historical logbook data in one go. Because logbook information is only visible to members, you need to first run the ukc\_login.py script (and click the 'stay logged in' box). This stores login cookies in the path specified in the config file, and then uses these to log in automatically in the scraper script.
+
+TODO: implement logic to separate winter routes from summer routes - need to look at the html on the crag overview page for this. Also extract grade and name automatically. Then store a master dataframe which stores name, grade and path to a csv file containing all logs for that route.
+
