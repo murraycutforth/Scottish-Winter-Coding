@@ -12,7 +12,8 @@ Some scripts are designed to be run daily (using `cron`) to extract current MWIS
  - Install and configure rclone by running:
 ```
 sudo apt install rclone
-rclone config```
+rclone config
+```
 and follow the interactive prompts to set up a remote with any cloud storage provider. Set the name to "MyGoogleDrive", otherwise edit the REMOTENAME variable in the makefile.
 
  - Next, just run `make all`. This uses the simple Makefile in the project to automatically set up the Python environment, and add crontab entries to scrape and back up MWIS and CIC data daily.
