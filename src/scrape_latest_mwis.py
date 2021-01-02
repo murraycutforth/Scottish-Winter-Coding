@@ -7,6 +7,7 @@ Author:
 """
 
 import re
+import os
 from pathlib import Path
 from typing import *
 from dateutil.parser import parse
@@ -23,7 +24,7 @@ LOCATIONS = ['west-highlands',
 SECTION_TITLES = ['How Wet?',
                   'How windy? (On the Munros)',
                   'How Cold? (at 900m)']
-TABLE_PATH = Path('./../data/MWIS/mwis_forecasts.csv')
+TABLE_PATH = Path(os.environ['PROJ_DIR']) / 'data/MWIS/mwis_forecasts.csv'
 
 
 def main():
