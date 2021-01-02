@@ -46,6 +46,3 @@ From the past 24 hours at the CIC hut.
 ### UKC
 
 Currently set up so that when pointed at a crag overview page, the script extracts all winter routes on the crag, and then iterates through them and stores a separate csv file for each logbook. The code is purposefully slowed down to be kind to the UKC servers (if you're reading this Alan James, pls don't ban me). Just needs to be run once to get all historical logbook data in one go. Because logbook information is only visible to members, you need to first run the ukc\_login.py script (and click the 'stay logged in' box). This stores login cookies in the path specified in the config file, and then uses these to log in automatically in the scraper script.
-
-TODO: implement logic to separate winter routes from summer routes - need to look at the html on the crag overview page for this. Also extract grade and name automatically. Then store a master dataframe which stores name, grade and path to a csv file containing all logs for that route.
-
