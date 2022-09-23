@@ -1,0 +1,9 @@
+beautifulsoup4
+pandas
+python-dateutil
+requests
+lxml
+html5lib
+selenium
+chromedriver-binary
+gin-config
