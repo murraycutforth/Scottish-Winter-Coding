@@ -7,9 +7,13 @@ from dateutil.parser import parse
 import datetime
 import requests
 import logging
+from pprint import pformat
 
 from bs4 import BeautifulSoup
 import pandas as pd
+
+from database_functions import setup_database, add_mwis_forecast_to_database
+from mwis_forecast import MwisForecast
 
 
 logger = logging.getLogger(__name__)
@@ -24,40 +28,21 @@ LOCATIONS = ['west-highlands',
              'southeastern-highlands']
 
 
-class MwisForecast():
-    location: str = ""
-    date: str = ""
-    days_ahead: int = 0
-    headline: str = ""
-    how_wet: str = ""
-    how_windy: str = ""
-    cloud_on_hills: str = ""
-    chance_cloud_free: str = ""
-    sunshine: str = ""
-    how_cold: str = ""
-    freezing_level: str = ""
+def main():
+    logging.basicConfig(level=logging.DEBUG)
 
-    def __iter__(self):
-        """Sorted iteration over attribute names
-        """
-        for k in sorted(self.__annotations__):
-            yield k
+    logger.info("Started main script")
 
-    def __repr__(self) -> str:
-        return f"MwisForecast(location={self.location}, date={self.date}, days_ahead={self.days_ahead})"
+    setup_database()
+    
+    mwis_forecast = scrape_latest_mwis()
 
-    @staticmethod
-    def attr_to_section_title() -> Dict:
-        """Mapping from attribute name to section title in HTML
-        """
-        return {"how_wet": "How Wet?",
-                 "how_windy": "How windy? (On the Munros)",
-                 "cloud_on_hills": "Cloud on the hills?",
-                 "chance_cloud_free": "Chance of cloud free Munros?",
-                 "sunshine": "Sunshine and air clarity?",
-                 "how_cold": "How Cold? (at 900m)",
-                 "freezing_level": "Freezing Level"}
-            
+    logger.debug(pformat(mwis_forecast, width=240))
+
+    add_mwis_forecast_to_database(mwis_forecast)
+
+    logger.info("Program finished normally")
+
 
 
 def scrape_latest_mwis() -> List[MwisForecast]:
@@ -135,19 +120,5 @@ def extract_forecast_section(forecast_soup, title) -> str:
         return ""
 
 
-def forecast_to_series(all_forecasts: Dict) -> pd.Series:
-    """Convert extracted forecast to pandas series with multiindex
-
-    NOTE: this function not used atm, unless it is called in another file?
-    """
-    all_forecasts_tuple_keys = {(i, j, k): all_forecasts[i][j][k] \
-            for i in all_forecasts.keys() \
-            for j in all_forecasts[i].keys() \
-            for k in all_forecasts[i][j].keys()}
-
-    mux = pd.MultiIndex.from_tuples(all_forecasts_tuple_keys.keys(),
-                                    names=['Location', 'Number of days ahead', 'Forecast section'])
-    df_row = pd.Series(all_forecasts_tuple_keys.values(), index=mux)
-
-    return df_row
-
+if __name__ == "__main__":
+    main()
