@@ -12,8 +12,9 @@ from pprint import pformat
 from bs4 import BeautifulSoup
 import pandas as pd
 
-from database_functions import setup_database, add_mwis_forecast_to_database
-from mwis_forecast import MwisForecast
+from src.database_functions import setup_database, add_mwis_forecast_to_database
+from src.mwis_forecast import MwisForecast
+from src.utils import mwis_log_dir
 
 
 logger = logging.getLogger(__name__)
@@ -29,7 +30,13 @@ LOCATIONS = ['west-highlands',
 
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
+    logdir = mwis_log_dir()
+    if not logdir.exists():
+        logdir.mkdir()
+    logging.basicConfig(handlers=[logging.FileHandler(filename=logdir / f"run_{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.log", mode="w"),
+        logging.StreamHandler()], 
+        level=logging.DEBUG,
+        format="[%(asctime)s-%(filename)s-%(levelname)s] %(message)s")
 
     logger.info("Started main script")
 

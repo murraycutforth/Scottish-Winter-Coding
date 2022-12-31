@@ -1,3 +1,7 @@
 data
 swc-env
-src/__pycache__
+__pycache__
+dependency_parse
+*.pyc
+*.csv
+*.log

@@ -1,9 +1,29 @@
+# For MWIS scraper
 beautifulsoup4
-pandas
-python-dateutil
 requests
+python-dateutil
+
+# For UKC scraper
+pandas
 lxml
 html5lib
 selenium
 chromedriver-binary
-gin-config
+
+# For web app
+Click==7.0
+cycler==0.10.0
+Flask==1.0.2
+Jinja2==2.10
+kiwisolver==1.0.1
+MarkupSafe==1.1.0
+matplotlib
+numpy
+pyparsing==2.3.0
+python-dateutil==2.7.5
+six==1.11.0
+SQLAlchemy==1.2.14
+Werkzeug==0.14.1
+
+# For NLP processing of forecasts
+nltk

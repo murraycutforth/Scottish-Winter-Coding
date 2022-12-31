@@ -5,8 +5,8 @@ import logging
 from typing import List
 from pathlib import Path
 
-from utils import database_cache_path
-from mwis_forecast import MwisForecast
+from src.utils import database_cache_path
+from src.mwis_forecast import MwisForecast
 
 
 logger = logging.getLogger(__name__)
