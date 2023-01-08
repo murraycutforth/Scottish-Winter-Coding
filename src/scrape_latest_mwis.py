@@ -32,7 +32,7 @@ LOCATIONS = ['west-highlands',
 def main():
     logdir = mwis_log_dir()
     if not logdir.exists():
-        logdir.mkdir()
+        logdir.mkdir(parents=True)
     logging.basicConfig(handlers=[logging.FileHandler(filename=logdir / f"run_{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.log", mode="w"),
         logging.StreamHandler()], 
         level=logging.DEBUG,

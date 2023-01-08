@@ -2,9 +2,9 @@
 beautifulsoup4
 requests
 python-dateutil
+pandas
 
 # For UKC scraper
-pandas
 lxml
 html5lib
 selenium
