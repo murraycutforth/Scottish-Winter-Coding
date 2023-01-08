@@ -6,8 +6,8 @@ from src.utils import database_cache_path
 
 def main():
 
-    date = "2022-12-20"
-    location = "west-highlands"
+    date = "2023-01-03"
+    location = "southeastern-highlands"
 
     db_path = database_cache_path()
     assert db_path.exists()

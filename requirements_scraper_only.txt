@@ -1,0 +1,4 @@
+# For MWIS scraper
+beautifulsoup4
+requests
+python-dateutil

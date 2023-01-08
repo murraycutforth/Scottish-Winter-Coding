@@ -27,3 +27,4 @@ Werkzeug==0.14.1
 
 # For NLP processing of forecasts
 nltk
+spacy

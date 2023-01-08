@@ -1,5 +1,6 @@
 data
 swc-env
+swc-scraper-env
 __pycache__
 dependency_parse
 *.pyc

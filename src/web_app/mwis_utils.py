@@ -19,6 +19,9 @@ def freezing_level_to_numeric(text) -> int:
     if re.search("terrain frozen|terrain widely frozen", text, flags=re.IGNORECASE):
         numbers.extend([0, 100])
 
+    if re.search("thaw slowly setting in", text, flags=re.IGNORECASE):
+        numbers.extend([700, 1200])
+
     if numbers == []:
         print(f"No number found for freezing level: {text}")
         return (1500, 1500)
